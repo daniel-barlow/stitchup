@@ -1,6 +1,6 @@
 # Stitchup
 
-This is a fresh look at an actual problem: how Updraft parses its
+This is a fresh look at an actual problem: how [Updraft](https://github.com/simplybusiness/uPDraFt/) parses its
 incoming document creation requests.  Presently this is tackled in a
 rather ad-hoc way, in that there are a number of underspecified hashes
 and we sometimes get validation errors in unexpected places.
@@ -39,3 +39,5 @@ should be ;-) accessible only to @simplybusiness folk
 * [SB] https://docs.google.com/presentation/d/1QZV-80THDHnxssK63zmQP7k_FMsUrS9IRDzls0G5jYM/edit#slide=id.g1f87997393_0_782
 
 * [SB] https://drive.google.com/file/d/12GgFci7d2SmfsdSOwMqFumrfYX9j6xC9/view?t=28m20s
+
+* [SB] https://github.com/simplybusiness/uPDraFt/blob/master/lib/updraft/pdf_request.rb
