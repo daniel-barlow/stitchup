@@ -28,11 +28,22 @@ module Stitchup
         self.class.new(blk.call(@value))
       end
 
+      # there is an obvious similarity between assoc and << which
+      # makes me think there must be some clever way to abstract them
+
       def assoc(key, other)
         if other.successful?
           self.class.new(value.merge(key => other.value))
         else
           Failure.new(key => other.failure)
+        end
+      end
+
+      def <<(other)
+        if other.successful?
+          self.class.new(value << other.value)
+        else
+          Failure.new([other.failure])
         end
       end
     end
@@ -49,6 +60,7 @@ module Stitchup
       end
 
       def lift(&blk)
+        # if we're on the failure track, this does nothing
         self
       end
 
@@ -57,6 +69,14 @@ module Stitchup
           self
         else
           self.class.new(failure.merge(key => other.failure))
+        end
+      end
+
+      def <<(other)
+        if other.successful?
+          self
+        else
+          self.class.new(failure << other.failure)
         end
       end
     end
