@@ -30,7 +30,7 @@ RSpec.describe Stitchup::Template do
     expect(parse_result).not_to be_successful
     errors = parse_result.failure
     expect(errors).to have_key :source
-    expect(errors[:fields].values)
+    expect(errors[:fields])
       .to include({:message=>"value is not a string", :name=>"6 * 9"})
   end
 end
