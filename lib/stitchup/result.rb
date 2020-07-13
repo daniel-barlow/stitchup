@@ -37,7 +37,7 @@ module Stitchup
         self.class.new(blk.call(@value))
       end
 
-      def assoc(key, other, &blk)
+      def assoc(key, other)
         if other.successful?
           self.class.new(value.merge(key => other.value))
         else
@@ -61,7 +61,7 @@ module Stitchup
         self
       end
 
-      def assoc(key, other, &blk)
+      def assoc(key, other)
         if other.successful?
           self
         else
