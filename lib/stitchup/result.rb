@@ -11,15 +11,6 @@ module Stitchup
       Result::Failure.new(failure)
     end
 
-    def unit(value)
-      # XXX : should we check for failure before doing this? Not
-      # sure. So far I haven't had to use it except on a brand-new
-      # instance so the question hasn't arisen
-      # XXX II : I don't think we even need this, actually
-      @value = value
-      self
-    end
-
     class Success < Result
       attr_reader :value
 

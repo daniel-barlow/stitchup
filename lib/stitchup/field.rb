@@ -5,8 +5,8 @@ module Stitchup
     def self.parse(name:, value:)
       if value.is_a? String
         Result::Success.new
-          .assoc(:name, Result::Success.new.unit(name))
-          .assoc(:value, Result::Success.new.unit(value))
+          .assoc(:name, Result::Success.new(name))
+          .assoc(:value, Result::Success.new(value))
           .lift { |v| Field.new(v) }
       else
         Result.fail({name: name, message: "value is not a string"})
