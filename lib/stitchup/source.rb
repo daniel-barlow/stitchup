@@ -1,5 +1,5 @@
-require 'stitchup/result'
-require 'uri'
+require "stitchup/result"
+require "uri"
 
 module Stitchup
   class Source
