@@ -9,7 +9,7 @@ module Stitchup
           .assoc(:value, Result::Success.new.unit(value))
           .lift { |v| Field.new(v) }
       else
-        Result::Failure.new.fail({name: name, message: "value is not a string"})
+        Result.fail({name: name, message: "value is not a string"})
       end
     end
 

@@ -1,15 +1,14 @@
 module Stitchup
   class Result
-    attr_reader :value, :failure
-
     # Result is not intended to be instantiated directly: it's
-    # supposed to be a union type of Result::Success and
-    # Result::Failure. There is currently nothing in the code to stop
-    # you from doing so, though
+    # a union type of Result::Success and Result::Failure
 
-    def initialize
-      @value = {}
-      @failure = {}
+    def self.unit(value)
+      Result::Success.new(value)
+    end
+
+    def self.fail(failure)
+      Result::Failure.new(failure)
     end
 
     def unit(value)
@@ -30,34 +29,41 @@ module Stitchup
     end
 
     class Success < Result
+      attr_reader :value
+
+      def initialize(value = {})
+        @value = value
+      end
+
       def successful?
         true
       end
 
       def assoc(key, other, &blk)
         if other.successful?
-          self.class.new.unit(value.merge(key => other.value))
+          self.class.new(value.merge(key => other.value))
         else
-          Failure.new.fail(failure.merge(key => other.failure))
+          Failure.new(key => other.failure)
         end
       end
     end
 
     class Failure < Result
+      attr_reader :failure
+
       def successful?
         false
       end
 
-      def fail(failure)
+      def initialize(failure)
         @failure = failure
-        self
       end
 
       def assoc(key, other, &blk)
         if other.successful?
           self
         else
-          self.class.new.fail(failure.merge(key => other.failure))
+          self.class.new(failure.merge(key => other.failure))
         end
       end
     end

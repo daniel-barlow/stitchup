@@ -6,9 +6,9 @@ module Stitchup
     def self.parse(url_string)
       uri = URI.parse(url_string)
       if uri.is_a? URI::HTTP
-        Result::Success.new.unit(uri)
+        Result.unit(uri)
       else
-        Result::Failure.new.fail("#{url_string} is not HTTP(S)")
+        Result.fail("#{url_string} is not HTTP(S)")
       end
     end
 
