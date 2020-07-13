@@ -3,7 +3,7 @@ module Stitchup
     # Result is not intended to be instantiated directly: it's
     # a union type of Result::Success and Result::Failure
 
-    def self.unit(value)
+    def self.unit(value = {})
       Result::Success.new(value)
     end
 

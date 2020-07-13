@@ -4,7 +4,7 @@ module Stitchup
   class Field
     def self.parse(name:, value:)
       if value.is_a? String
-        Result::Success.new
+        Result.unit
           .assoc(:name, Result::Success.new.unit(name))
           .assoc(:value, Result::Success.new.unit(value))
           .lift { |v| Field.new(v) }

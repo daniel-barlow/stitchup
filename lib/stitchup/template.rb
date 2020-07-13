@@ -6,10 +6,10 @@ module Stitchup
   class Template
     def self.parse(source:, fields:)
       index = 1
-      fields = fields.reduce(Result::Success.new([])) { |m, (fieldname, subst)|
+      fields = fields.reduce(Result.unit([])) { |m, (fieldname, subst)|
         m << Field.parse(name: fieldname, value: subst)
       }
-      Result::Success.new
+      Result.unit
         .assoc(:source, Source.parse(source))
         .assoc(:fields, fields)
         .lift { |v| Template.new(v) }
