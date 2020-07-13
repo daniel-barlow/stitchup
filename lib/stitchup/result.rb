@@ -12,19 +12,11 @@ module Stitchup
     end
 
     def unit(value)
-      # XXX should we check for failure before doing this? Not
+      # XXX : should we check for failure before doing this? Not
       # sure. So far I haven't had to use it except on a brand-new
       # instance so the question hasn't arisen
+      # XXX II : I don't think we even need this, actually
       @value = value
-      self
-    end
-
-    def lift(&blk)
-      # The block is called with the unwrapped internal value of the
-      # result, and whatever it returns is assigned to that value.
-      # Possibly we should be creating a new instance of the result
-      # instead of mutating self
-      @value = blk.call(@value) if successful?
       self
     end
 
@@ -39,6 +31,12 @@ module Stitchup
         true
       end
 
+      def lift(&blk)
+        # The block is called with the unwrapped internal value of the
+        # result, and whatever it returns is assigned to that value.
+        self.class.new(blk.call(@value))
+      end
+
       def assoc(key, other, &blk)
         if other.successful?
           self.class.new(value.merge(key => other.value))
@@ -51,12 +49,16 @@ module Stitchup
     class Failure < Result
       attr_reader :failure
 
+      def initialize(failure)
+        @failure = failure
+      end
+
       def successful?
         false
       end
 
-      def initialize(failure)
-        @failure = failure
+      def lift(&blk)
+        self
       end
 
       def assoc(key, other, &blk)
