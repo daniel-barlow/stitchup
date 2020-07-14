@@ -15,13 +15,10 @@ object we actually need
 the monad laws. (Yes, this is why we have the rather opaque method
 names `unit` and `lift`)
 
-The biggest ugliness in this right now is that the Result type only
-really accommodates key->value maps, and sometimes we'd like it to
-store a value that's just an array. You'll see in Template.parse that
-we work around this by faking some field names. This is temporary and
-will be addressed once I think of a nice way to do so.
-
-There is also some work that could be done to make the syntax sweeter.
+The biggest ugliness in this right now is that the Result type might 
+hold a hash or an array and you have to know which of them you've been
+handed in order to know how to use it, which seems kind of ungainly. 
+Look in template.rb to see what I mean
 
 Start by reading [spec/stitchup/template_spec.rb](https://github.com/daniel-barlow/stitchup/blob/main/spec/stitchup/template_spec.rb) to see how it hangs
 together
