@@ -2,8 +2,9 @@
 
 This is a fresh look at an actual problem: how [Updraft](https://github.com/simplybusiness/uPDraFt/) parses its
 incoming document creation requests.  Presently this is tackled in a
-rather ad-hoc way, in that there are a number of underspecified hashes
-and we sometimes get validation errors in unexpected places.
+rather ad-hoc way, in that there are a number of underspecified hashes, 
+we signal invalid data by raising exceptions, and we sometimes get 
+validation errors in unexpected places.
 
 The approach here is:
 
